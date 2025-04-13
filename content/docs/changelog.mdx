@@ -1,0 +1,151 @@
+---
+title: Changelog
+description: A list of all the new features we've shipped
+---
+
+## April 4, 2025
+-  🆕 **Subscription update process enhancements**:
+    - Fixed issue where subscription updates created new subscriptions instead of modifying existing ones.
+    - Added ability to customize credit allocation when updating your subscription plan. You can select any number of credits you want to be added to your account.
+
+## April 2, 2025
+- 🐞 **Resolved two issues affecting app users in [company search](https://app.theirstack.com/search/companies)**:
+    - When filtering by technology category (e.g. "CRM Platforms") not showing a column per technology (e.g. "Salesforce", "Hubspot", "Zoho"...).
+    - When exporting a list of companies filtering by technology category, there was not a column for each technology of the category.
+    - When changing the technology filter, the table was filtering by the new technology, but a column was still showing the old technology.
+
+## April 1, 2025
+- 🆕 **Auto recharge**: You can now set when to automatically purchase credits when your balance is low in the [billing page](https://app.theirstack.com/settings/billing).
+
+## March 17, 2025
+- 🆕 **Webhooks API is publicly available**: You can now use the webhooks API to integrate this feature in your own system or to automate webhook creations. Check out the [webhooks docs](https://api.theirstack.com/#tag/webhooks) for more information.
+
+## March 14, 2025
+
+- 🆕 **Roles and permissions**: We've added roles and permissions to the team. Admins can now add and remove members and receive billing alerts.
+- 🆕 **Export limit increased**: You can export CSV files with more than 100,000 records.
+
+## March 12, 2025
+ - 🆕 *New version of the dataset endpoint* [v1/datasets/technographics](https://api.theirstack.com/#tag/datasets/POST/v1/datasets/technographics) offering technographic dataset in parquet format.
+ - 🆕 *Improvement of the Requests section in the [Usage page](https://app.theirstack.com/usage)*: You can now see UI requests not only API Requests.
+ - 🆕 *New button to open a search from the API request*. You can now open a search from the API request modal by clicking on the "Open search" button.
+
+## March 11, 2025
+ - 📚 New [webhooks docs](/docs/webhooks)
+ - 📚 Improved [Clay docs](/docs/clay)
+ - 📚 Enhanced [Backfilling job board](/docs/backfill-job-board) post
+
+
+## March 10, 2025
+
+- 🆕 **Webhooks Observability**: You can now view the response body and status code for each webhook. Additionally, you can filter events by their status (success or failure) and determine if a failure was due to a timeout.
+- 🆕 **Webhooks Retry Mechanism**: Failed webhooks are now automatically retried every hour for up to 48 hours.
+- 🆕 **New v2.0.0 for the Technographics dataset**. Includes new columns, and renames some existing ones for consistency. Now includes columns for the 3 current sources of technographics data we have:
+    - Job titles
+    - Job descriptions
+    - Job URLs
+
+Here are the columns which name has changed or have been added.
+
+The following columns are renamed:
+
+- `technology_id` → `keyword_id`
+- `technology_rank` → `technology_rank_source_jobs`
+- `technology_rank_180_days` → `technology_rank_180_days_source_jobs`
+- `rank_1_tie` → `rank_1_tie_source_jobs`
+- `rank_180_days_tie` → `rank_180_days_tie_source_jobs`
+- `relative_occurrence_within_category` → `relative_occurrence_within_category_source_jobs`
+- `jobs_source_final_url` → `jobs_source_url`
+- `first_date_found_source_final_url` → `first_date_found_source_job_url`
+- `last_date_found_source_final_url` → `last_date_found_source_job_url`
+
+The following columns are added:
+
+- `keyword_slug` - Slug identifier for the technology
+- `subcategory_slug` - Slug identifier for the technology subcategory
+- `is_recruiting_agency` - Indicates if the company is a recruiting agency
+- `jobs_source_description_last_180_days` - Number of jobs mentioning this technology in the job description in the last 180 days
+- `jobs_source_description_last_30_days` - Number of jobs mentioning this technology in the job description in the last 30 days
+- `jobs_source_description_last_7_days` - Number of jobs mentioning this technology in the job description in the last 7 days
+- `jobs_source_title` - Number of jobs mentioning this technology in the job title
+- `jobs_source_title_last_180_days` - Number of jobs mentioning this technology in the job title in the last 180 days
+- `jobs_source_title_last_30_days` - Number of jobs mentioning this technology in the job title in the last 30 days
+- `jobs_source_title_last_7_days` - Number of jobs mentioning this technology in the job title in the last 7 days
+- `jobs_source_url_last_180_days` - Number of jobs mentioning this technology in the ATS URL in the last 180 days
+- `jobs_source_url_last_30_days` - Number of jobs mentioning this technology in the ATS URL in the last 30 days
+- `jobs_source_url_last_7_days` - Number of jobs mentioning this technology in the ATS URL in the last 7 days
+- `first_date_found_source_job_title` - Date when the job title first mentioned the technology
+- `last_date_found_source_job_title` - Date when the job title last mentioned the technology
+- `rank_last_date_found_source_job_url` - Rank of the technology within its category based on mentions in job ATS URLs as of the last date found
+- `relative_occurrence_within_category_180_days_source_jobs` - Measures the relative occurrence of this technology among other technologies in the same category, in jobs by this company over the last 180 days
+
+
+## March 3, 2025
+
+-   🆕 **Improvements on Dataset page**: You can now download the dictionary of the dataset with all the information about the fields, see the size of the dataset and the number of rows it contains.
+
+## February 26, 2025
+
+-   🆕 **Enhanced ATS URL exists filter**: We've enhanced the ATS URL exists filter to exclude jobs with URLs from 70 major job boards, such as ziprecruiter.com and thehub.io.
+
+## February 25, 2025
+
+-   🆕 **New UI redesign enhancing developer experience**: Managing webhooks, datasets, API keys and reviewing your consumption is now easier than ever.
+
+## February 24, 2025
+
+-   🆕 **Job searches are now ~4x faster**  ⚡️
+
+    Performance improvements:
+    - **Average response time**: 6.9s → 1.7s (⬇️ 75%)
+    - **90th percentile response time**: 12.2s → 3s (⬇️ 75%)
+    - **95th percentile response time**: 36.7s → 4.9s (⬇️ 87%)
+    - **99th percentile response time**: 120s → 11s (⬇️ 91%)
+
+## February 18, 2025
+
+-   🆕 **New [datasets page](https://app.theirstack.com/datasets)**. You can now view all available datasets, and download a sample for each one.
+
+-   🆕 **Track company credits consumption**. You can now track the company credits consumption from the [usage page](https://app.theirstack.com/settings/usage).
+
+## February 17, 2025
+
+-   🆕 **New [invoices page](https://app.theirstack.com/settings/invoices)**. You can now view all your invoices, see the consumption for each invoice, and download them in PDF format.
+
+-   🆕 **Webhook executions chart on the [usage page](https://app.theirstack.com/settings/usage)**. You can now monitor the total number of webhook executions across all your webhooks.
+
+-   🆕 **Billing consumption alerts**. You will now get an email notification when your billing consumption exceeds 70% or reaches 100%.
+
+## February 12, 2025
+
+-   🆕 **Refresh your API key**. You can now refresh your API key through the [settings page](https://app.theirstack.com/settings/api-key). This is useful if you want to rotate your API key for security reasons.
+
+-   🆕 **Remove members from your organization**. You can now remove members from your organization through the [settings page](https://app.theirstack.com/settings/organization).
+
+-   🆕 **API Request Observability**. You can now see the status (200 OK, 402 Payment Required, 508 Request Timeout...) of your API request through the [requests page](https://app.theirstack.com/api).
+
+## February 6, 2025
+
+-   🆕 **Webhook Observability**. You can now view a chart displaying the number of webhooks sent and a table detailing each webhook event.
+
+## January 27, 2025
+
+-   🆕 **Webhooks**. You can now subscribe to webhooks to get notified when new jobs are posted. Trigger actions in Make.com, Zapier, Clay or any other tool that supports webhooks when new jobs are posted.
+
+## January 20, 2025
+
+-   🆕 **Export data to Clay.com**. You can now export your list of jobs or companies to Clay through our Webhooks integration. Click on the "Export" button in the top right corner of the table and select Webhooks, paste the Webhook URL provided by Clay, and click on "Export". In a few seconds, you will see the data in your Clay table.
+
+## January 14, 2025
+
+-   🆕 **New filter `job_seniority_or` in our [Jobs API](https://api.theirstack.com/#tag/jobs/POST/v1/jobs/search)**. This filter allows you to search for jobs by seniority level.
+
+-   🆕 **Shortened URL detection for new jobs and companies**. Our system now identifies shortened URLs (e.g., `bit.ly`, `tinyurl`, etc.) for newly discovered jobs and companies. Instead of storing the shortened URL in our database, we now retrieve and save the original URL.
+
+-   🐞 **Fixed an issue causing duplicate job postings**. A job is considered a duplicate if the same company posts the same job title within a 30-day window. Previously, the system identified duplicates by checking job postings from the past 30 days, instead of 30 days before and after the posting date. As a result, jobs posted more than 30 days ago were not flagged as duplicates when found again by our system.
+
+-   🐞 **Fixed Make.com button**. The Make.com button, which lets you copy a Make scenario that calls our API, was not authenticating correctly.
+
+## January 10, 2025
+
+-   🆕 **New field and filter `easy_apply` in our [Jobs API](https://api.theirstack.com/#tag/jobs/POST/v1/jobs/search)**. This field indicates whether the job application can be submitted directly through the job board (`easy_apply=True`) or requires redirecting to the company's website (`easy_apply=False`). Initially, this field will be populated for new jobs sourced from LinkedIn and Indeed.

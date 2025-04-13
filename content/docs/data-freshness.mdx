@@ -1,0 +1,32 @@
+---
+title: Data Freshness
+description: How frequently we scrape jobs and update our jobs and company datasets
+---
+
+## Job Data
+
+We have scrapers that run on different frequencies to ensure we capture the most up-to-date job listings:
+
+*   **Every 10 Minutes**: For websites that change frequently and have a high volume of jobs.
+*   **Every Hour**: For websites with moderate changes and job postings.
+*   **Every Day**: For websites with lower job volumes.
+
+By following this schedule, we ensure that after one day, we have captured most of the jobs posted the previous day.
+
+In the following GIF, you can see the date and time we discovered jobs posted on a specific date (April 24th).
+
+![Jobs posted on December 12th](https://images.prismic.io/theirstack/Zk8pCSol0Zci9YvG_CleanShot2024-05-23at13.25.12.gif?auto=format,compress)
+
+As you see, while we capture the majority of new job postings within the first and second day, there is a long tail of job discoveries that extends over weeks after that.
+
+This means that the number of jobs posted today or yesterday may appear lower initially than its final value, which will increase as more jobs are discovered.
+
+### Increasing job scraping frequency
+
+For customers in the [Startup Plan](https://theirstack.com/pricing) or above, if they're interested in a specific job segment and want to access new jobs as soon as possible, we can increase the frequency of our scrapers for those jobs. [Contact us](mailto:founders@theirstack.com) if this is your case.
+
+## Company data
+
+We update our company dataset every day, including new technologies we found in recent jobs, the total number of jobs found for them and all the other company information we have.
+
+This means that for jobs found in the current day, if the company didn't exist in our database before, we wouldn't have data until the day after, so company filters wouldn't work on those jobs. However, this happens in a minimal percentage of all jobs and you'd still see these jobs in job searches and their company data would appear empty until the day after.

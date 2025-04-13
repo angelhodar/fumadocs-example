@@ -1,0 +1,11 @@
+{
+  "title": "Documentation",
+  "root": true,
+  "pages": [
+    "---Getting started---",
+    "introduction",
+    "changelog",
+    "---Our data---",
+    "data-freshness"
+  ]
+}
