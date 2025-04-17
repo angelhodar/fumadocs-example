@@ -1,0 +1,74 @@
+---
+title: Webhooks
+description: Learn how to use webhooks to get notified when events occur (new jobs, tech changes, etc) in TheirStack and trigger actions in your external systems like N8N, Zapier, Make, Airtable, etc.
+---
+
+What are webhooks?
+------------------
+
+Webhooks allow you to send data when specific events occur (new jobs, tech changes, etc) to external systems like N8N, Zapier, Make, Airtable, your own webhook endpoint, etc.
+
+For instance, you can configure a webhook to alert you when a new job is listed in a particular location, company, or technology sector.
+
+Webhooks are dependent on a search, which defines the criteria for triggering the webhook.
+
+There are two types of webhooks:
+
+*   **`job.new`**: Triggered when a new job is discovered by TheirsStack.
+*   **`company.new`**: Triggered when a new company is discovered by TheirsStack.
+
+How to set up a webhook
+-----------------------
+
+Follow these steps to set up a webhook:
+
+1.  Create a job or company search with the criteria you are interested in.
+2.  Click on the "Webhooks" button on the search page.
+3.  Click on the "Create Webhook" button.
+4.  Enter the webhook URL and click on the "Create" button.
+
+Webhooks Applications
+---------------------
+
+*   Initiate a workflow in an automation tool like Zapier, Make, N8N when a new job is posted or a company adopts a new technology (e.g., Snowflake, Hubspot, Python).
+*   Send a Slack notification to your team when a new job is found or a company adopts a new technology (e.g., Snowflake, Hubspot, Python).
+*   Automatically update a Google Sheet with new job or company data.
+*   Trigger an email alert to a specific distribution list when a new job matches certain criteria.
+*   Create a table in Airtable to store job listings.
+*   Integrate with a CRM system to add new company information as leads.
+
+Your own webhook endpoint
+-------------------------
+
+If you are builing your own webhook endpoint, please take into account the following:
+
+*   Return a 200 status code to indicate that the webhook event was received and processed successfully. Failed webhook events are retried every hour for 48 hours.
+*   Your webhook endpoint has to be prepared to handle at least 2 concurrent requests.
+*   Your webhook endpoint has to be prepared to handle duplicates. Our system is designed to not send the same job twice to your webhook URL. However, this could happen in some edge cases (e.g: you listen to two searches with not exclusive jobs).
+*   When a webhook sends data, it uses an HTTP POST request, with a JSON payload. per
+
+Settings
+--------
+
+Webhooks have the following settings:
+
+*   **`Choose where to start`**: You can choose whether to start listening from this point forward or from the start of the search. If you choose to start from the start of the search, you will receive all events that have occurred since the search was created.
+    
+*   **`Trigger once per company`**: When enabled, the webhook will fire only once for each company. This is helpful for sales workflows where you want to act on the first job posted (e.g., send an email, add to a CRM) without triggering the workflow for every subsequent job from the same company. Eg: If active, Company A with 5 jobs → 1 event triggered. If deactivated, Company A with 5 jobs → 5 events triggered.
+    
+Faqs
+----
+
+### What happens to webhook events when I run out of API credits?
+
+When you run out of API credits, webhook event monitoring is temporarily paused. During this period, no new events will appear in your webhook history. Monitoring automatically resumes once you purchase additional API credits.
+
+Whether you miss events during the pause depends on your search criteria. For example, if your webhook tracks jobs posted within the last 60 days and you lack credits for 2 days, you won't miss anything - when credits are restored, all jobs discovered during the pause will still trigger your webhook as they match your search parameters.
+
+### What happens if the webhook event fails?
+
+If the webhook event fails, it will be automatically retried every hour for 48 hours.
+
+### How much cost to run a webhook?
+
+Webhook events are billed at the same rate as API requests. They consume 1 API credit per event.

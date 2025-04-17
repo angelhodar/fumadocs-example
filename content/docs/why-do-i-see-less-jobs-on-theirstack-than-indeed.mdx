@@ -1,0 +1,50 @@
+---
+title: Why do I see a smaller number of job listings on TheirStack compared to platforms like Indeed or LinkedIn?
+description: When you search for a job on Indeed or Linkedin, you may see more results than on TheirStack. This is because Indeed uses broader keyword matching, while TheirStack prioritizes precision.
+---
+
+The difference lies in how job searches are conducted on TheirStack versus platforms like LinkedIn, Indeed, or Glassdoor. Let's focus on Indeed as an example, though the same principles apply to other providers.
+
+Search methodology
+------------------
+
+### Keyword matching
+
+Job boards like Indeed use broader keyword matching:
+
+*   **Synonyms and Related Jobs**: For example, when you search for "network engineer," Indeed may return jobs that loosely match those terms, even if they don't contain the exact keywords.
+*   **Company Name Matching**: For example, when you search for "franchise", LinkedIn may return jobs where the company name contains the word 'franchise'.
+
+On TheirStack, we prioritize precision. Our job title filter is deterministic, meaning it only returns results with an exact match for the keywords you provide. This approach ensures greater accuracy in the search results.
+
+![Image 1: Indeed job search](https://theirstack.com/static/generated/contentlayer/docs/posts/why-do-i-see-less-jobs-on-theirstack-than-indeed/indeed_job_search.png)
+
+### Date range
+
+Indeed and LinkedIn typically display jobs that have been posted or reposted within the last 30 days by default, whereas TheirStack does not automatically filter jobs based on their reposted date.
+
+How to Increase Results on TheirStack
+-------------------------------------
+
+*   **Add More Keywords**: Broaden your search terms to include additional relevant keywords (see Picture A).
+
+![Image 2: Job title lists](https://theirstack.com/static/generated/contentlayer/docs/posts/why-do-i-see-less-jobs-on-theirstack-than-indeed/job_titles.png)
+
+*   **Use Regex Patterns**: Leverage regular expressions for more flexible and advanced search queries (see Picture B).
+
+![Image 3: Regex patterns](https://theirstack.com/static/generated/contentlayer/docs/posts/why-do-i-see-less-jobs-on-theirstack-than-indeed/job_titles_regex.png)
+
+Upcoming Features
+-----------------
+
+We're working on
+
+*   a new filter that incorporates a synonym dictionary, which will enhance your search capabilities.
+*   a new filter that allows you to filter by reposted date.
+
+Avoid Filtering by Scraping Source
+----------------------------------
+
+We scrape jobs from various sources, including company career pages, LinkedIn, and job boards. To avoid duplication, we save only the first instance of a job posting. For example, if a job appears on a company's career page and on Indeed, only the first source is stored.
+
+Filtering by `scraping_source = Indeed` will return only jobs initially found on Indeed, which may reduce the results. We recommend using broader filters for a more comprehensive search.

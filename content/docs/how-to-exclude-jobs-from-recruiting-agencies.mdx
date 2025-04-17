@@ -1,0 +1,153 @@
+---
+title: How to exclude jobs from recruiting agencies
+description: In this guide you'll learn which filters can help you exclude jobs from recruiting agencies or consulting firms
+---
+
+Introduction
+------------
+
+If you’re a recruiting agency, it doesn’t make sense that you sell your services to other recruiting agencies. So you’d want to find only jobs from companies that aren’t recruiting agencies, or generate reports of companies that aren’t recruiting agencies . This article shows how to do it with TheirStack.
+
+Excluding by "Company type"
+---------------------------
+
+In the job search page, you will find a filter called "Company Type". It will let you search for jobs from direct employers or recruiting agencies.
+
+![Image 1](https://images.prismic.io/theirstack/65a7fd777a5e8b1120d5a040_Xnapper-2024-01-17-17.16.41.png?auto=format,compress)
+
+A note on accuracy
+------------------
+
+Every classification task is a tradeoff between accuracy and precision. This is, maximizing the rate of true positives (% companies that we classify as recruiting agencies) while minimizing the rate of false negatives (% of companies that we classify as not recruiting agencies, but actually are).
+
+We preferred to err on the side of caution, and try that all of the companies we classify as recruiting agencies actually are. This means some of them are left out, and will be classified as direct employers when they are not.
+
+When you find some misclassified companies, contact us ([xoel@theirstack.com](mailto:xoel@theirstack.com)) and we’ll fix that right away.
+
+And to address it yourself, check out the next section.
+
+Refining results
+----------------
+
+As said in the previous section, there will be cases when recruiting companies are classified as direct employers. To reduce the times when this happens, you can add some filters
+
+### Excluding by "Industry"
+
+For a large percentage of companies, we have the industry they report they belong to.
+
+You can use the **Exclude companies** filter in the Job Search or in the Technology Details views.
+
+We classified all companies under industries that contain **staffing** and **outsourcing** as recruiting companies.
+
+But many companies in the **Human Resources** industry will be recruiting companies. If you exclude that industry, you’ll exclude those companies as well (you’ll exclude also some companies that may not be recruiting agencies)
+
+![Image 2](https://images.prismic.io/theirstack/65a7fea07a5e8b1120d5a04b_Xnapper-2024-01-17-17.21.30.png?auto=format,compress)
+
+### Excluding by keywords in "Company Description"
+
+If you only exclude companies by industry, you may still get some false positives: companies that are actually recruiting companies but label themselves as “Internet” or “Information Technology & Services”.
+
+However, for most companies we have a Company Description field (extracted from their websites, LinkedIn profile and other sources)
+
+![Image 3](https://images.prismic.io/theirstack/65a7ffbc7a5e8b1120d5a06d_Xnapper-2024-01-17-17.24.46.png?auto=format,compress)And you can filter results by words or phrases present in the company description:
+
+![Image 4](https://images.prismic.io/theirstack/65a800037a5e8b1120d5a06e_screenshot-2024-01-17-17.27.20.jpg?auto=format,compress)Look for the **Exclude Company Description Patterns** filter. This field is case-insensitive.
+
+```
+consulting  
+services  
+outsourcing  
+recruiting  
+recruitment  
+headhunting  
+Tic  
+A medida  
+consultora  
+tecnologías de la información  
+Clientes finales  
+Integradoras  
+el mejor talento  
+360  
+transformación digital  
+digital transformation  
+solutions  
+consultants  
+talent  
+people  
+personas  
+digital services  
+Integradas  
+Soluciones digitales  
+cambio digital  
+servicios TI  
+consultores  
+servicios de it  
+servicios de ti  
+consultoria  
+consultoría
+```
+
+### Excluding by "Company Name"
+
+However, we know this all isn’t bulletproof and even if you do all of this, it’s likely that you still get some false positives, and results from companies you wouldn’t want.
+
+So if you have a list of companies you don’t want to get results from, you can also pass it and TheirStack won’t return any results from companies that contain any of the strings you pass (so if you pass Apple, you also won’t get jobs from Apple, Inc.)
+
+![Image 5](https://images.prismic.io/theirstack/65a8009e7a5e8b1120d5a072_screenshot-2024-01-17-17.29.56.jpg?auto=format,compress)Look for the **Exclude company names (substring match)** field in the **Companies** section, on the right side.
+
+You could even [ask ChatGPT](https://chat.openai.com/share/523016e8-15a7-4532-a2b4-11e55d3dc148) for a list like this
+
+```
+Robert Half  
+Kelly Services  
+Manpower  
+Adecco  
+Randstad  
+Allegis  
+Kforce  
+The Execu|Search  
+Insight Global  
+Collabera  
+Aerotek  
+Volt Workforce Solutions  
+Apex Systems  
+TEKsystems  
+Yoh Services  
+HireTalent  
+Infinity Consulting Solutions  
+Nelson Staffing  
+Accountemps  
+Creative Circle  
+Express Employment Professionals  
+Artech Information Systems  
+Beacon Hill Staffing  
+ProLink Staffing  
+Addison Group  
+Signature Consultants  
+ASGN  
+The Select Group  
+TalentBurst  
+TrueBlue  
+MATRIX Resources  
+Collabera  
+Bartech Staffing  
+Vaco  
+Global Employment Solutions  
+Mastech Digital  
+The Judge Group  
+Aquent  
+Oxford Global Resources  
+Tech USA  
+IDR  
+Motion Recruitment Partners  
+ICONMA  
+Swoon  
+Advantage Resourcing  
+Beacon Hill Technologies  
+Mondo  
+Insight Enterprises  
+ITAC Solutions  
+Open Systems Technologies
+```
+
+Paste it, add your own list, re-run the search, and you’ll be good to go.

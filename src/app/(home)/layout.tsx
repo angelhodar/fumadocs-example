@@ -1,7 +1,21 @@
-import type { ReactNode } from 'react';
-import { HomeLayout } from 'fumadocs-ui/layouts/home';
-import { baseOptions } from '@/app/layout.config';
+import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import type { ReactNode } from "react";
+import { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
+import { baseOptions, linkItems } from '@/app/layout.config';
+import { source } from "@/lib/source";
+
+const options: BaseLayoutProps = {
+  ...baseOptions,
+  links: linkItems.slice(1, linkItems.length)
+}
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return <HomeLayout {...baseOptions}>{children}</HomeLayout>;
+  return (
+    <DocsLayout
+      tree={source.pageTree}
+      {...options}
+    >
+      {children}
+    </DocsLayout>
+  );
 }

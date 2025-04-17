@@ -1,0 +1,43 @@
+---
+title: Backfilling a job board
+description: Learn why TheirStack is the best job board backfill solution and how to backfill a job board using webhooks
+---
+
+What is backfilling a job board?
+--------------------------------
+
+Backfilling a job board involves augmenting its own job listings with external postings from various sources. This integration allows job boards to present a broader array of opportunities to their users, helping to attract more traffic, boost user engagement, and ultimately enhance their overall value proposition.
+
+Why TheirStack is the best job board backfill solution
+------------------------------------------------------
+
+Backfilling job boards is a common use case for our Job data platform and it was built with this in mind:
+
+*   **Original job link to company website** When a job originates from a company's career page, we include the URL (`final_url`) so you can redirect users to the correct source. You can also get only jobs from career pages with the `final_url_exists` filter.
+    
+*   **Standardized job descriptions** Our job descriptions are standardized across all information sources in Markdown format, ensuring consistency.
+    
+*   **Company information** Most of our jobs are enriched with company information, so can use the company `domain`, `industry`, `headcount`, `revenue`, `type`, `location` and technologies used for your company profile page.
+    
+*   **Up-to-date data** The data is up-to-date, with new jobs being added to our database every minute.
+    
+*   **Filters** If you are a niche job board, you can use the `job_title_or` filter to get specific jobs, or the company `industry_id_or` filter to get only jobs from companies in a specific industry or any of our 20+ filters.
+    
+*   **16k+ job data sources** so you can get a wide range of jobs from all over the world. [Learn more](https://theirstack.com/en/docs/job-sources)
+    
+
+How to backfill a job board
+---------------------------
+
+You have two options:
+
+1.  **Webhook (Recommended)**: Set up a webhook to listen for the `new.job` event. By applying the necessary filters, you can ensure that you only receive the job postings that meet your specific criteria. This approach allows you to automatically receive new job listings as soon as they are published.
+    
+    *   Step 1 - Create a job search with your desired criteria (e.g: location, company, technology, etc). You can create as many as you want. It's important to create exclusive criteria to avoid receiving duplicate job postings.
+        
+    *   Step 2 - Set up a webhook to listen for the `new.job` event. [How to set up a webhook](https://theirstack.com/en/docs/webhooks)
+        
+2.  **API**: Use our [Jobs API](https://api.theirstack.com/) to fetch jobs periodically. Check out our [Fetch jobs periodically](https://theirstack.com/en/docs/fetch-periodically-jobs) guide for more details.
+    
+
+The API approach is more cumbersome as it involves some extra steps from you, so our recommendation is to use webhooks.

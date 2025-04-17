@@ -6,7 +6,7 @@ const withMDX = createMDX();
 const config = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [{ hostname: "images.prismic.io" }]
+    remotePatterns: [{ hostname: "images.prismic.io" }, { hostname: "theirstack.com"}, { hostname: "img.youtube.com"}]
   }
 
 };

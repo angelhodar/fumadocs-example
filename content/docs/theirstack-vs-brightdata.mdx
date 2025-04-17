@@ -1,0 +1,151 @@
+---
+title: TheirStack vs BrightData
+description: BrightData also provides some job scrapers for job boards like LinkedIn or Indeed. In this guide we compare TheirStack and BrightData to help you understand the differences and choose the best option for your needs.
+---
+
+Quick Decision Guide
+--------------------
+
+**Choose BrightData if**
+
+*   You don't need a real-time solution and are fine waiting 4-5 minutes for each job search.
+*   You're comfortable implementing a complex integration with multiple API calls, retry logic, and snapshot storage.
+*   You don't need extensive filtering capabilities
+*   You’re prepared to manage separate processes for each job board and handle job deduplication yourself.
+
+**Choose TheirStack if**
+
+*   You need a real-time solution that responds in 100ms-2s
+*   You want a fast and easy integration with a single API call
+*   You want to filter by attributes like company countries, industries, company sizes, job description, etc
+*   You want all the jobs from all the job boards in one place and don't want to handle job deduplication.
+
+Detailed comparison
+-------------------
+
+BrightData is a general purpose web data extraction platform, so jobs per se are not their main focus. On the other hand, jobs is at the core of what we do at TheirStack. So 100% of our effort is in building a high-quality, end-to-end job data platform.
+
+### Development cost and complexity
+
+BrightData's integration is complex:
+
+*   It requires at least two API calls for each search: one to create the search and another to retrieve the results.
+*   You'll need to save in your database the snapshot ID of each search so that you can retrieve the results later.
+*   You'll need to implement retry logic since the data isn't immediately available and can take several minutes to be ready.
+*   There is no pagination so you will likely miss some jobs
+*   If you need to search in multiple job boards,
+    *   you'll need separate API calls for each source
+    *   you'll need to handle job deduplication on your side because job boards share most of their jobs.
+
+TheirStack integration is straightforward with just a single API call needed. You can find our complete documentation [here](https://api.theirstack.com/#tag/jobs/POST/v1/jobs/search).
+
+### Response time
+
+When you make a request to TheirStack, we make a search in our database, which already contains millions of jobs scraped from [thousands of job boards and websites](https://theirstack.com/en/docs/job-sources). The response comes back almost instantly - 90% of our requests finish in less than 2 seconds.
+
+For example, to get the last data analyst jobs posted in NYC in the last 7 days with us you'd make this call:
+
+```bash
+curl --request POST \
+     --url "https://api.theirstack.com/v1/jobs/search" \
+     --header "Content-Type: application/json" \
+     --header "Authorization: Bearer <api_key>" \
+     --data '{
+       "posted_at_max_age_days": 7,
+       "job_country_code_or": [
+         "US"
+       ],
+       "job_title_or": [
+         "data analyst"
+       ],
+       "job_location_pattern_or": [
+         "new york",
+         "nyc"
+       ]
+     }'
+```
+
+In BrightData, when you make a search they do a live call to their job boards to get the data. This process involves 2 calls and the results not only aren't instant but take **minutes** to come back.
+
+To get the same data as in the previous example, first you'd make a call like this:
+
+```bash
+curl --request POST \
+     --url "https://api.brightdata.com/datasets/v3/trigger?dataset_id=gd_lpfll7v5hcqtkxl6l&include_errors=true&type=discover_new&discover_by=keyword&limit_per_input=5" \
+     --header "Authorization: Bearer <bearer_token>" \
+     --header "Content-Type: application/json" \
+     --data '[
+       {
+         "location": "New York",
+         "keyword": "data analyst",
+         "country": "US",
+         "time_range": "Past week",
+         "job_type": "",
+         "experience_level": "",
+         "remote": "",
+         "company": ""
+       }
+     ]'
+```
+
+The result of this would not be the data directly, but a snapshot ID like this:
+
+```json
+{
+"snapshot_id": "s_m5o15lt05g12b9s1x"
+}
+```
+
+You'd then need to make a second call to get the data:
+
+```bash
+curl --request GET \
+     --url "https://api.brightdata.com/datasets/v3/snapshot/s_m5o15lt0rn12b9s1x?format=json" \
+     --header "Authorization: Bearer <bearer_token>"
+```
+
+From our tests, this requests takes 8-10s to complete, and even after 3 or 4 minutes, the data isn't ready yet and we'd get responses like this:
+
+```json
+{
+"status": "running",
+"message": "Snapshot is not ready yet, try again in 10s"
+}
+```
+
+This invalidates using BrightData for any real-time use case you might have related to jobs. But not only that.
+
+### Extensive filtering capabilities
+
+BrightData just lets you filter by the limited set of filters LinkedIn supports.
+
+TheirStack lets you filter by many filters that LinkedIn or BrightData don't support and won't support anytime soon. To name a few:
+
+*   **Company filters:** By industry, size, country, revenue, funding, URL, LinkedIn URL or slug, etc.
+*   **Job filters:** By title, description, country, city, remote options, salary, etc. Regular expression filters are supported by many fields like title, description or locations
+
+### Historical data
+
+BrightData only provides access to recent job postings, with limited historical data availability.
+
+TheirStack maintains a comprehensive historical database of jobs dating back to 2019, allowing you to access and analyze job postings across much larger time spans.
+
+### Comprehensive documentation.
+
+BrightData's job scraping API documentation is limited and requires frequent communication with support to understand parameter usage and functionality.
+
+We are an API-first company, so our [Job Search API](https://api.theirstack.com/#tag/jobs/POST/v1/jobs/search) is at the core of what we do and we talk with users daily to make it better and add new filters and features they need. We put great care into the developer experience, and you can tell so by visiting the link above and seeing how well documented our API is, so that you don't have to waste time figuring out how each parameter works or talking to support to get help.
+
+### Job consolidation across multiple job boards
+
+BrightData offers LinkedIn, Indeed and Glassdoor job scrapers. We scrape those and more job boards, having jobs from tens of thousands of domains.
+
+With BrightData you would need to use one individual scraper per each job board, and then consolidate jobs into a central repository.
+
+With TheirStack, we consolidate jobs from all of them into a single database and provide a single API endpoint to access them so that you can get all the jobs you want with a single request, instead of having to make multiple requests to different scrapers.
+
+### Job deduplication
+
+Because BrightData has different endpoints for each job board, they don't handle job deduplication across them. But it happens many times that the same job appears on multiple job boards.
+
+As we offer a single entrypoint for all our job data, we have built our own job deduplication algorithm that lets us identify if the same job has already been scraped. Therefore, you won't get the same job twice and you won't have to worry about handling job deduplication yourself.

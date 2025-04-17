@@ -1,0 +1,36 @@
+---
+title: Understanding delays in job discovery
+description: Explore the reasons why jobs are sometimes discovered days after they are posted and the factors influencing this delay.
+---
+
+### Introduction
+
+When analyzing our data, you'll notice that a small percentage of jobs are discovered (`discovered_at`) after the day when they were initially posted (`posted_at`). This delay is common and is influenced by various factors beyond our control.
+
+### Discovery Timeline
+
+To illustrate this, let's examine jobs posted on a specific day (December 14th) and observe when they were discovered by us.
+
+![Image 1: Jobs posted on December 12th](https://theirstack.com/static/generated/contentlayer/docs/posts/why-some-jobs-are-discovered-days-after-they-are-posted/chart2.png)
+
+| Discovered At | Percentage of Jobs Discovered |
+| --- | --- |
+| Same Day (0) | 73% |
+| Next Day (1) | 21% |
+| 2 Days Later | 3% |
+| 3 Days Later | 0.3% |
+| 4 Days Later | 0.2% |
+
+As shown, 73% of jobs are found on the same day they are posted. However, there is a significant number of jobs discovered days later. To understand this, it's important to know how we collect our data.
+
+### Factors Contributing to Delays
+
+We scrape job boards, that at the same time scrape other job boards and career pages of companies. They also can get jobs posted directly by companies, or from companies’ ATS systems that sync with these job boards.
+
+While we scrape these job boards constantly, there are many reasons a job posted by a company at a certain date is not available on those job boards instantly, and therefore it’s not possible for us to discover it. To name a few:
+
+*   **ATSs sync delay with job boards**: The ATS that a company uses lets them sync jobs with a major job board, but the recruiter can choose which jobs to push to that job board because they charge for it. They may not initially sync it and do it after a few days to try to get more candidates. But the integration may keep the original date when the job was posted first, and show that in the final job board, instead of the date when the job was pushed. In this case, there will be a gap of a few days.
+    
+*   **Job board scrapping delay**: A job board scrapes company career pages periodically, running daily. If a company posts a job at 14h and the job board scraper visits it at 10h every day, that job won’t be available in the job board until the day after. For companies that post many positions, it makes sense for job boards to visit those career pages with a high frequency. But visiting every career page of every company in the world periodically has a cost, so for smaller companies that very ocasionally post jobs, doing it on a weekly basis could help those job boards save money. So imagine they visit one of these companies’ career site every Monday. If they post a job on Tuesday, they won’t visit it again until next Monday, so there will be a 6-day difference between `posted_at` and `discovered_at`
+    
+*   **Job board publishing delay**: If someone publishes a job directly on a job board we scrape, this job board may also let them set a custom `posted_at` that is days before the current date. But the job is not available at that job board until the very moment when that person publishes it there, and even if the reported `posted_at` is previous to that, that job wouldn’t have been discovered before because that person hadn’t published it in that job board yet.

@@ -1,0 +1,57 @@
+---
+title: How to fetch periodically jobs using Jobs API
+description: This guide will demonstrate how to periodically fetch jobs from the TheirStack API, ensuring fresh data and minimizing API costs.
+---
+
+<Callout title="Important notice" type="warn"> We strongly recommend using our webhooks to fetch jobs periodically. Using the Jobs API will make it harder to ensure fresh data and minimize API costs.</Callout>
+
+To integrate TheirStack's job data seamlessly into your application or database, focus on the following:
+
+*   [Ensure fresh data with efficient batching](https://theirstack.com/en/docs/fetch-jobs-periodically#ensure-fresh-data-with-efficient-batching).
+*   [Minimize API costs by optimizing your requests](https://theirstack.com/en/docs/fetch-jobs-periodically#minimize-api-costs-by-optimizing-your-requests).
+*   [Avoid missing any data during the integration process](https://theirstack.com/en/docs/fetch-jobs-periodically#avoid-missing-any-data-during-the-integration-process).
+
+### Ensure fresh data with efficient batching
+
+We continuously monitor company websites and job boards to identify new job postings. To optimize performance, we recommend batching your requests with a maximum frequency of once every hour or two hours, based on your needs, and using the maximum limit of 500 jobs per page.
+
+### Minimize API costs by optimizing your requests
+
+One API Credit is consumed for each record returned from our API endpoints. If you fetch the same job multiple times, you will be charged for each fetch.
+
+The `discovered_at` field in the `job` object indicates the date and time when the job was first identified by TheirStack. To prevent duplicate charges when fetching jobs, you can filter by `discovered_at_gte` in your request to get only new jobs. This parameter will ensure that only jobs discovered after the specified date are fetched.
+
+The `discovered_at_gte` parameter is a timestamp in the format `YYYY-MM-DDTHH:MM:SSZ` and it should be the date and time of the last job you fetched.
+
+
+```sql
+SELECT MAX(discovered_at) FROM jobs;
+```
+
+Copy the timestamp and use it as the value for `discovered_at_gte` in your request.
+
+```bash
+curl --request POST \
+     --url "https://api.theirstack.com/v1/jobs/search" \
+     --header "Accept: application/json" \
+     --header "Content-Type: application/json" \
+     --header "Authorization: Bearer <api_key>" \
+     -d '{
+       "offset": 0,
+       "limit": 500,
+       "discovered_at_gte": "2024-12-29T17:32:28Z",
+       "job_title_or": [
+         "Data Engineer"
+       ],
+       "posted_at_max_age_days": 15,
+       "job_country_code_or": [
+         "NG"
+       ]
+     }'
+```
+
+Another option is to use the `job_id_not` filter. You'd need to fetch the IDs of the jobs you already have in your system from us, and pass them to the Job Search Endpoint. This can be useful if you fetch jobs from multiple searches and the same job may appear in the results from more than one search.
+
+### Avoid missing any data during the integration process
+
+If your cron process fails—whether due to system downtime, credit depletion, or connection issues—you can resume from the last processed job using the `discovered_at_gte` parameter. This ensures you fetch only the jobs discovered after the last successful run, preventing any data loss even in periodic integrations.

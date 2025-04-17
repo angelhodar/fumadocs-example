@@ -14,25 +14,26 @@ export default async function Page(props: {
 }) {
   const params = await props.params;
 
-  if (!params.slug) redirect("/docs/introduction")
+  if (!params.slug) redirect("/introduction")
 
   const page = source.getPage(params.slug);
 
   if (!page) notFound();
 
-  const MDXContent = page.data.body;
+  const { body: MdxContent, toc } = await page.data.load();
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage toc={toc} full={page.data.full}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
-        <MDXContent
+        <MdxContent components={getMDXComponents()} />
+        {/*<MDXContent
           components={getMDXComponents({
             // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page),
           })}
-        />
+        />*/}
       </DocsBody>
     </DocsPage>
   );

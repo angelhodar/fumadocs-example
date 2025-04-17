@@ -1,0 +1,92 @@
+---
+title: Monitoring open jobs from current and past customers
+description: In this guide you'll learn how to know which companies from a given list are actively hiring. This can help SaaS companies detect new needs of their current customers for potential upsells, and also recruitment companies to find old customers that are hiring again and could be easier to sell to than if they were completely new customers.
+---
+
+Introduction
+------------
+
+### Are you a recruiting company?
+
+If so, you know it is a tough industry. Every month, revenue starts at zero dollars and you have to build up your way from there. Winning new customers is hard and you hear "no" many times. However, reconnecting with former clients can often be more straightforward and successful. They already know your work and trust you. TheirStack can help you make these reconnections easier by informing you when these past clients are hiring again.
+
+### Are you a SaaS company?
+
+In this case, long-term, net retention revenue is key to building a long-standing, healthy, compounding business. If you have NRR > 100% it means that over time you're making more money from the same customers.
+
+The way to do this is to figure out new problems your customers are having, and either build new products to solve them or help your customers solve them with your sofware in ways they weren't aware of.
+
+By digging into their job posts, one can infer the problems a company is running into.
+
+### Monitoring jobs manually
+
+To monitor that for all your past customers, you'd have to
+
+*   check all the job boards and all the companies' career pages
+*   and do it regularly, at least weekly. Otherwise, jobs may already be filled, you could have lost them to a competitor or they could have solved their problem by the time you contact the company.
+
+The bigger your customer list is, the longer this process would take. And you should check out _all_ the jobs posted, until the last page.
+
+Doing this manually is tedious and time-consuming.
+
+Yet it's important and has to be done, or you risk leaving lots of money on the table on the table if you don't do it.
+
+Monitoring which companies are hiring
+-------------------------------------
+
+With TheirStack you can filter our worldwide jobs database by the company names and domains of your current or former clients, letting you:
+
+*   see the results visually on our UI
+*   export the data in CSV and Excel
+*   get alerts sent daily or weekly to your email with all the jobs and companies found
+*   make the same searches via [API](https://api.theirstack.com/)
+*   send new opportunities to Slack, Hubspot, Salesforce and many more with our Make and Zapier integrations.
+
+TheirStack gives you 2 options or seeing the information
+
+1.  **Doing a job search:** by searching our jobs database directly, you'll see all the details of each job, including the specific sections of the job description that are relevant to you (if you're filtering by technologies or keywords in the description). Check our [Job Search guide](https://theirstack.com/en/docs/job-search-guide) to learn more about this, and some of the most important filters you can apply. To do this, go to the Jobs section, clicking on **Jobs** in the navbar
+2.  **Doing a company search:** we'll group all the jobs from each company and just return a list of companies, with a small section where you can see some of the jobs found from each company.
+
+In the rest of this guide, we'll show you how to do the second option. All the job filters are available in both views.
+
+### Do a company search
+
+To do so, follow these steps
+
+1.  Go to app.theirstack.com and click on the **Companies** section, in the nav bar.
+2.  Remove the existing filters, by clicking on the X next to each filter.
+
+![Image 1](https://images.prismic.io/theirstack/Zi-Obt3JpQ5PTPU9_ScreenShot2024-04-29at2.10.58PM.png?auto=format,compress)
+
+1.  Add a **Company name** filter, and then paste the names of all your past customers, one per line.
+
+![Image 2](https://images.prismic.io/theirstack/Zi-hZ93JpQ5PTPe-_CleanShot2024-04-29at15.28.31.gif?auto=format,compress)
+
+1.  Add a **Job Posting -> Date Posted** filter and set it to 30, for example, to see which of the companies have posted jobs in the last 30 days.
+
+![Image 3](https://images.prismic.io/theirstack/Zi-i7d3JpQ5PTPfz_ScreenShot2024-04-29at3.38.34PM.png?auto=format,compress)As you see, a new **Jobs** column will be shown, where you can see the jobs each company has posted.
+
+![Image 4](https://images.prismic.io/theirstack/Zi-klt3JpQ5PTPhI_ScreenShot2024-04-29at3.45.43PM.png?auto=format,compress)
+
+1.  To get as many matches as possible, add a **Company domain** filter and paste the domains or URLs of your past customer. Sometimes the name of the company in our database doesn't match exactly the name that you pass, but the domain does. As you see, if you do this the number of companies for which we found jobs almost tripled (going from 68 to 176, out of 200 companies)
+
+![Image 5](https://images.prismic.io/theirstack/Zi-m9d3JpQ5PTPig_ScreenShot2024-04-29at3.55.52PM.png?auto=format,compress)
+
+1.  Save the search by clicking on the **Save** button in the top right corner of the screen and give a name to it by clicking on its name and setting a new one.
+2.  (Optional) If you specialize in tech jobs, you can also add a **Job title** filter and paste the jobs from [this guide](https://theirstack.com/en/docs/how-to-get-tech-jobs-only). You'll then only see the companies hiring tech profiles.
+
+![Image 6](https://images.prismic.io/theirstack/Zi-o1t3JpQ5PTPjj_ScreenShot2024-04-29at4.03.41PM.png?auto=format,compress)
+
+### Get Alerts
+
+To enable daily or weekly alerts, go to our homepage at [app.theirstack.com](https://app.theirstack.com/), look for the search you've just saved. Click on the 3 dots to open its contextual menu and then click on **Enable weekly alert** or **Enable daily alert**.
+
+![Image 7](https://images.prismic.io/theirstack/Zi-qgd3JpQ5PTPkR_ScreenShot2024-04-29at4.10.45PM.png?auto=format,compress)
+
+### Get results via API/Make/Zapier to send them to your Slack, Hubspot, Salesforce...
+
+When you go to the search you've created, you'll see a number at the end of the URL. That's the ID for the search:
+
+![Image 8](https://images.prismic.io/theirstack/Zi-rMt3JpQ5PTPmE_ScreenShot2024-04-29at4.13.34PM.png?auto=format,compress)Then, with [this endpoint](https://api.theirstack.com/#tag/saved-searches/get/v0/saved_searches) of our API, you can get the details of the search you've saved. The **body** element of the response contains the payload sent to the company search or job search endpoint, needed to make the same call that our UI does.
+
+If you need more help to send new results to your CRM, we'll help you with the integration. [Send us an email](mailto:founders@theirstack.com) and we'll write you back soon.

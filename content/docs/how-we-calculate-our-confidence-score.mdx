@@ -1,0 +1,12 @@
+---
+title: How we calculate the confidence score
+description: TheirStack assigns a confidence score to every technology every company has ever mentioned in a job to how likely it is that they use it. This is how we calculate it.
+---
+
+As we explained [here](https://theirstack.com/en/docs/how-we-source-tech-stack-data), the source of our tech stack data is jobs. We can know when a company mentions a technology, and if it mentions it many times compared to similar technologies it is likely that they use it, but we can never be 100% sure.
+
+Following on the example of the previous link of companies from Germany using Snowflake, we assign different confidence scores to different companies:
+
+![Image 1](https://images.prismic.io/theirstack/Zk32pCol0Zci9Wu8_CleanShot2024-05-22at15.40.30.png?auto=format,compress)[Follow this link](https://app.theirstack.com/search/companies/new?query=JTdCJTIybmFtZSUyMiUzQSUyMkNvbXBhbmllcyUyMHVzaW5nJTIwU25vd2ZsYWtlJTIwaW4lMjBHZXJtYW55JTIyJTJDJTIyYXV0b19zZWFyY2glMjIlM0F0cnVlJTJDJTIyYXV0b19zYXZlJTIyJTNBdHJ1ZSUyQyUyMnF1ZXJ5JTIyJTNBJTdCJTIyY29tcGFueV90ZWNobm9sb2d5X3NsdWdfb3IlMjIlM0ElNUIlMjJzbm93Zmxha2UlMjIlNUQlMkMlMjJvcmRlcl9ieSUyMiUzQSU1QiU3QiUyMmZpZWxkJTIyJTNBJTIybnVtX2pvYnMlMjIlMkMlMjJkZXNjJTIyJTNBdHJ1ZSU3RCU1RCUyQyUyMmNvbXBhbnlfY291bnRyeV9jb2RlX29yJTIyJTNBJTVCJTIyREUlMjIlNUQlN0QlN0Q=) to run the same search on your account. If you hover over each card, you'll see that for the companies where the assigned confidence is high, the number of jobs and the value of Rel. occurrence are higher than for companies where confidence is low or medium. See it here - for Deutsche Bank only 5 jobs mentioning Snowflake were found, and that was just the 10.9% of all mentions of technologies in the Big Data as a Service category by Deutsche bank.
+
+![Image 2](https://images.prismic.io/theirstack/Zk33RCol0Zci9Wvc_CleanShot2024-05-22at15.46.15.png?auto=format,compress)Those values are much higher for DHL, as seen [here](https://theirstack.com/en/docs/how-we-source-tech-stack-data), so the assigned confidence score is High.
