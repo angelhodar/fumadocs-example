@@ -12,7 +12,7 @@ export default async function Page(props: {
 
   if (!page) notFound();
 
-  const { body: Mdx, toc } = await page.data.load();
+  const { body: Mdx, toc } = await page.data;
 
   return (
     <div className="container max-w-5xl p-4">

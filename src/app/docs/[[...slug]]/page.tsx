@@ -20,20 +20,19 @@ export default async function Page(props: {
 
   if (!page) notFound();
 
-  const { body: MdxContent, toc } = await page.data.load();
+  const { body: MdxContent, toc } = page.data;
 
   return (
     <DocsPage toc={toc} full={page.data.full}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
-        <MdxContent components={getMDXComponents()} />
-        {/*<MDXContent
+        <MdxContent
           components={getMDXComponents({
             // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page),
           })}
-        />*/}
+        />
       </DocsBody>
     </DocsPage>
   );
@@ -47,7 +46,9 @@ export async function generateMetadata(props: {
   params: Promise<{ slug?: string[] }>;
 }) {
   const params = await props.params;
+  
   const page = source.getPage(params.slug);
+
   if (!page) notFound();
 
   return {

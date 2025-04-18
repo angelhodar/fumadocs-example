@@ -10,7 +10,7 @@ export const linkItems: LinkItemType[] = [
   {
     icon: <BookIcon />,
     text: 'Documentation',
-    url: '/',
+    url: '/docs/introduction',
     active: 'url',
   },
   {

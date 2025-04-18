@@ -5,7 +5,7 @@ import { docs, blog as blogPosts } from '@/.source';
 
 // See https://fumadocs.vercel.app/docs/headless/source-api for more info
 export const source = loader({
-  baseUrl: '/',
+  baseUrl: '/docs',
   source: docs.toFumadocsSource(),
 });
 
